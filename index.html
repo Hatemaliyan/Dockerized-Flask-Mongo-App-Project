@@ -1,85 +1,95 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Movies Website</title>
-</head>
-
-<body>
+<html>
+  <head>
+    <title>Find a Movie</title>
     <style>
-        body {
-            background: black
-        }
-
-        .movie-card {
-            width: 300px;
-            height: auto;
-            background: white;
-            padding: 12px;
-            align-self: center;
-            border-radius: 8px;
-            margin: 10px;
-        }
-
-        .movie-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        .movie-poster {
-            width: 100%;
-            height: auto;
-            margin-bottom: 8px;
-            border-radius: 4px;
-        }
-
-        .search-bar {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-
-        .search-bar input {
-            padding: 8px;
-            font-size: 16px;
-            border-radius: 4px;
-            border: none;
-            width: 400px;
-            max-width: 100%;
-        }
-
-        .search-bar button {
-            padding: 8px 12px;
-            margin-left: 10px;
-            font-size: 16px;
-            background: #007bff;
-            color: white;
-            border-radius: 4px;
-            border: none;
-            cursor: pointer;
-        }
+      body {
+        font-family: Arial, sans-serif;
+      }
+      h1 {
+        text-align: center;
+        margin-top: 50px;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 50px;
+      }
+      label {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+      input[type="text"] {
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: none;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        width: 300px;
+        text-align: center;
+      }
+      button[type="submit"] {
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: none;
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      button[type="submit"]:hover {
+        background-color: #0062cc;
+      }
+      .movie-list-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 50px;
+      }
+      .movie-card {
+        margin: 20px;
+        width: 300px;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        overflow: hidden;
+      }
+      .movie-card img {
+        width: 100%;
+        height: auto;
+      }
+      .movie-card h2 {
+        font-size: 20px;
+        margin: 10px;
+        text-align: center;
+      }
+      .movie-card p {
+        font-size: 16px;
+        margin: 10px;
+        text-align: justify;
+      }
     </style>
+  </head>
+  <body>
+    <h1>Find a Movie</h1>
+    <form action="/find_movie" method="post">
+      <label for="movie_title">Movie Title:</label>
+      <input type="text" id="movie_title" name="movie_title" required>
+      <button type="submit">Search</button>
+    </form>
 
-    <div class="search-bar">
-        <form action="/search-movie-poster" method="POST">
-            <input type="text" name="movie_title" placeholder="Search for a movie poster">
-            <button type="submit">Search</button>
-        </form>
-    </div>
-
-    <div class="movie-list">
+    <section>
+      <div class="movie-list-container">
         {% for movie in data %}
-        <div class="movie-card">
-            <img src="https://image.tmdb.org/t/p/w500/{{ movie.poster_path }}" alt="{{ movie.title }}"
-                class="movie-poster">
-            <h3>{{ movie.title }}</h3>
-            <p>{{ movie.overview }}</p>
-        </div>
+          <div class="movie-card">
+            <img src="https://image.tmdb.org/t/p/w500/{{movie.poster_path}}" alt="movie-poster">
+            <h2>{{movie.title}}</h2>
+            <p>{{movie.overview}}</p>
+          </div>
         {% endfor %}
-    </div>
-</body>
-
+      </div>
+    </section>
+  </body>
 </html>
