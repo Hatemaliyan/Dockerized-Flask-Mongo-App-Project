@@ -16,7 +16,7 @@ db = client.appdb
 fs = GridFS(db)
 
 # Define the TMDB API endpoint and API key
-api_key = "38f91b8617170eda47890d76bbdd4f58"
+api_key = ""
 base_url = "https://api.tmdb.org/3/discover/movie?api_key="+api_key
 
 def find_poster_in_mongo(title):
@@ -111,6 +111,6 @@ def find_movie():
     response = requests.get(search_url)
     json_data = response.json()
     return render_template("index.html", data=json_data["results"])
-    
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
