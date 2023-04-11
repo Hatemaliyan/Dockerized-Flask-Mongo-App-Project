@@ -1,20 +1,16 @@
 version: '3'
+
 services:
-  mongodb:
-    image: mongo
-    container_name: mongodb
-    ports:
-      - '27017:27017'
-    volumes:
-      - ./data:/data/db
   web:
-    build: .
-    container_name: web
-    ports:
-      - '5000:5000'
-    volumes:
-      - .:/code
     environment:
-      - MONGO_URI=mongodb://mongodb:27017/mydatabase
+      - TODO_DB_1_PORT_27017_TCP_ADDR=db
+    build: .
+    command: python -u app.py
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app  
     depends_on:
-      - mongodb    
+      - db
+  db:
+    image: mongo:latest

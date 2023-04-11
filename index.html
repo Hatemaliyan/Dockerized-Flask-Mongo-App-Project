@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Movies Website</title>
+</head>
+
+<body>
+    <style>
+        body {
+            background: black
+        }
+
+        .movie-card {
+            width: 300px;
+            height: auto;
+            background: white;
+            padding: 12px;
+            align-self: center;
+            border-radius: 8px;
+            margin: 10px;
+        }
+
+        .movie-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .movie-poster {
+            width: 100%;
+            height: auto;
+            margin-bottom: 8px;
+            border-radius: 4px;
+        }
+
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .search-bar input {
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: none;
+            width: 400px;
+            max-width: 100%;
+        }
+
+        .search-bar button {
+            padding: 8px 12px;
+            margin-left: 10px;
+            font-size: 16px;
+            background: #007bff;
+            color: white;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+
+    <div class="search-bar">
+        <form action="/search-movie-poster" method="POST">
+            <input type="text" name="movie_title" placeholder="Search for a movie poster">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <div class="movie-list">
+        {% for movie in data %}
+        <div class="movie-card">
+            <img src="https://image.tmdb.org/t/p/w500/{{ movie.poster_path }}" alt="{{ movie.title }}"
+                class="movie-poster">
+            <h3>{{ movie.title }}</h3>
+            <p>{{ movie.overview }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+
+</html>
