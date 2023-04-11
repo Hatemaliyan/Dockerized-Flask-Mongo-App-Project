@@ -14,7 +14,7 @@ client = MongoClient(os.environ['TODO_DB_1_PORT_27017_TCP_ADDR'], 27017)
 db = client.appdb
 
 # Define the TMDB API endpoint and API key
-api_key = "38f91b8617170eda47890d76bbdd4f58"
+api_key = "USE YOUR API KEY HERE"
 base_url = "https://api.tmdb.org/3/discover/movie?api_key="+api_key
 
 @app.route("/")
