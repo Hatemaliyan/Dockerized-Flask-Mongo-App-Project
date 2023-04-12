@@ -26,7 +26,9 @@ Click on a movie title to view its poster and details
 
 # Contributing
 
-Contributions are welcome! Please open an issue or submit a pull request.
+Contributions are welcome! 
+
+Please open an issue or submit a pull request.
 
 # License
 
