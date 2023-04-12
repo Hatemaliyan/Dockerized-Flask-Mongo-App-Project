@@ -5,7 +5,9 @@ This is a Flask web application that allows users to search for movie posters us
 # Installation
 
 Clone the repository: git clone https://github.com/Hatemaliyan/Dockerized-Flask-Mongo-App-Project.git
+
 Install the required packages: pip install -r requirements.txt
+
 Start the app: python app.py
 
 # Usage
