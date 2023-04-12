@@ -15,9 +15,13 @@ Start the app: python app.py
 # Usage
 
 Open your web browser and go to http://localhost:5000
+
 Enter a movie title in the search bar and click "Search"
+
 The app will display a list of movies with their posters
+
 Click "Download Poster" to download the poster image
+
 Click on a movie title to view its poster and details
 
 # Contributing
