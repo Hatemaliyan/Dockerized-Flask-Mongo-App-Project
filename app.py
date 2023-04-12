@@ -16,7 +16,7 @@ db = client.appdb
 fs = GridFS(db)
 
 # Define the TMDB API endpoint and API key
-api_key = ""
+api_key = "38f91b8617170eda47890d76bbdd4f58"
 base_url = "https://api.tmdb.org/3/discover/movie?api_key="+api_key
 
 def find_poster_in_mongo(title):
@@ -26,9 +26,18 @@ def find_poster_in_mongo(title):
         image_data = fs.get(movie['poster_id']).read()
         image = Image.open(BytesIO(image_data))
         movie['poster'] = base64.b64encode(image.tobytes()).decode()
+        movie['poster_url'] = 'data:image/png;base64,' + movie['poster']
         movies.append(movie)
     print("Found", len(movies), "movies")
     return movies
+
+@app.route('/download/<path:poster_path>')
+def download_poster(poster_path):
+    poster_data = requests.get(f'https://image.tmdb.org/t/p/w500/{poster_path}').content
+    response = make_response(poster_data)
+    response.headers.set('Content-Type', 'image/jpeg')
+    response.headers.set('Content-Disposition', 'attachment', filename='poster.jpg')
+    return response   
 
 def search_movie(movie_title):
     search_movie = 'https://api.themoviedb.org/3/search/movie'
@@ -49,16 +58,19 @@ def search_movie(movie_title):
         if not movies_list:
             break
 
-        total_movies.extend(movies_list)
+        for movie in movies_list:
+            if movie_title in movie.get("title"):
+                title = movie.get("title")
+                posters = find_poster_in_mongo(title)
+                if posters:
+                    movie['poster_url'] = posters[0]['poster_url']
+                total_movies.append(movie)
+                movie_titles.append(title)
+
         page_num += 1
 
     print(f'Movies found: {len(total_movies)}')
-    for movie in total_movies:
-        if movie_title in movie.get("title"):
-            title = movie.get("title")
-            movie_titles.append(title)
-    posters = find_poster_in_mongo(movie_title)
-    return total_movies, movie_titles, posters
+    return total_movies, movie_titles
 
 @app.route("/")
 def home():

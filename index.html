@@ -70,6 +70,21 @@
         margin: 10px;
         text-align: justify;
       }
+      .movie-card button {
+        display: block;
+        margin: 10px auto;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: none;
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      .movie-card button:hover {
+        background-color: #0062cc;
+      }
     </style>
   </head>
   <body>
@@ -87,6 +102,7 @@
             <img src="https://image.tmdb.org/t/p/w500/{{movie.poster_path}}" alt="movie-poster">
             <h2>{{movie.title}}</h2>
             <p>{{movie.overview}}</p>
+            <button onclick="window.location.href='/download/{{movie.poster_path}}'">Download Poster</button>
           </div>
         {% endfor %}
       </div>
